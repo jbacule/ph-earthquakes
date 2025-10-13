@@ -165,8 +165,110 @@ export default function Home() {
 		);
 	}
 
+	// Structured data for SEO
+	const structuredData = {
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebApplication",
+				"name": "Philippines Earthquakes Map",
+				"description": "Interactive earthquake monitoring application for the Philippines with real-time USGS data",
+				"url": "https://ph-earthquakes.jbacule.dev",
+				"applicationCategory": "UtilityApplication",
+				"operatingSystem": "Web Browser",
+				"offers": {
+					"@type": "Offer",
+					"price": "0",
+					"priceCurrency": "USD"
+				},
+				"author": {
+					"@type": "Person",
+					"name": "Josh Bacule",
+					"url": "https://jbacule.dev"
+				},
+				"publisher": {
+					"@type": "Person",
+					"name": "Josh Bacule",
+					"url": "https://jbacule.dev"
+				},
+				"datePublished": "2024-01-01",
+				"dateModified": new Date().toISOString().split('T')[0],
+				"keywords": "Philippines earthquakes, earthquake map, seismic activity, USGS data, real-time monitoring",
+				"browserRequirements": "Requires JavaScript. Requires HTML5.",
+				"featureList": [
+					"Real-time earthquake monitoring",
+					"Interactive map visualization",
+					"Magnitude filtering",
+					"Date range selection",
+					"Alert level filtering",
+					"Tsunami warnings",
+					"Detailed earthquake information",
+					"Mobile-responsive design"
+				]
+			},
+			{
+				"@type": "Organization",
+				"name": "Philippines Earthquakes Map",
+				"url": "https://ph-earthquakes.jbacule.dev",
+				"logo": "https://ph-earthquakes.jbacule.dev/icon.png",
+				"sameAs": [
+					"https://jbacule.dev"
+				]
+			},
+			{
+				"@type": "Dataset",
+				"name": "Philippines Earthquake Data",
+				"description": "Real-time earthquake data for the Philippines region from USGS",
+				"url": "https://ph-earthquakes.jbacule.dev",
+				"keywords": "earthquakes, Philippines, seismic activity, USGS, real-time data",
+				"creator": {
+					"@type": "Person",
+					"name": "Josh Bacule",
+					"url": "https://jbacule.dev"
+				},
+				"distribution": {
+					"@type": "DataDownload",
+					"encodingFormat": "application/json",
+					"contentUrl": "https://earthquake.usgs.gov/fdsnws/event/1/query"
+				},
+				"spatialCoverage": {
+					"@type": "Place",
+					"geo": {
+						"@type": "GeoShape",
+						"box": "4.478 116.191 21.33 127.354"
+					},
+					"name": "Philippines"
+				},
+				"temporalCoverage": `${queryParams.startTime || ''}/${queryParams.endTime || ''}`,
+				"variableMeasured": [
+					{
+						"@type": "PropertyValue",
+						"name": "Magnitude",
+						"description": "Earthquake magnitude on the Richter scale"
+					},
+					{
+						"@type": "PropertyValue",
+						"name": "Depth",
+						"description": "Earthquake depth in kilometers"
+					},
+					{
+						"@type": "PropertyValue",
+						"name": "Alert Level",
+						"description": "USGS alert level (green, yellow, orange, red)"
+					}
+				]
+			}
+		]
+	};
+
 	return (
 		<div className="h-screen flex flex-col">
+			{/* Structured Data for SEO */}
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+			/>
+			
 			{/* Header */}
 			<header className="bg-white border-b border-gray-200 shadow-sm z-10 relative">
 				<div className="px-4 py-3 flex items-center justify-between gap-2">
@@ -176,12 +278,14 @@ export default function Home() {
 						size="icon-sm"
 						onClick={() => setFilterSheetOpen(true)}
 						className="shrink-0"
+						aria-label="Open filters and settings"
 					>
 						<svg
 							className="w-5 h-5"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							aria-hidden="true"
 						>
 							<path
 								strokeLinecap="round"
@@ -308,13 +412,15 @@ export default function Home() {
 							size="icon-sm"
 							className="shrink-0"
 							disabled={loading}
-							title="Refresh data"
+							title="Refresh earthquake data"
+							aria-label="Refresh earthquake data"
 						>
 							<svg
 								className="w-4 h-4"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
+								aria-hidden="true"
 							>
 								<path
 									strokeLinecap="round"
@@ -330,12 +436,14 @@ export default function Home() {
 							onClick={() => setListSheetOpen(true)}
 							className="shrink-0"
 							title="View earthquake list"
+							aria-label="View earthquake list"
 						>
 							<svg
 								className="w-5 h-5"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
+								aria-hidden="true"
 							>
 								<path
 									strokeLinecap="round"

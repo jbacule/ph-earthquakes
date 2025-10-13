@@ -1,0 +1,26 @@
+# *
+User-agent: *
+Allow: /
+
+# Disallow specific paths if needed
+# Disallow: /api/
+# Disallow: /_next/
+
+# Sitemap
+Sitemap: https://ph-earthquakes.jbacule.dev/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Yandex
+User-agent: Yandex
+Allow: /
+
+# Crawl-delay for all bots (optional, adjust as needed)
+# Crawl-delay: 1
+

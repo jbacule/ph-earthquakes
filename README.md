@@ -41,6 +41,13 @@ An interactive, real-time earthquake monitoring application for the Philippines 
 - **Color-coded cards** by magnitude
 - **Quick stats** at a glance
 
+### 🔍 SEO & Performance
+- **Comprehensive SEO** optimization with structured data
+- **Social media** ready with Open Graph and Twitter Cards
+- **PWA capable** - installable as mobile app
+- **Performance optimized** for Core Web Vitals
+- **Accessibility** enhanced with ARIA labels
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -191,6 +198,9 @@ For more detailed information, see:
 - [Detailed Usage Guide](./docs/USAGE.md)
 - [Project Summary](./docs/PROJECT_SUMMARY.md)
 - [Mobile Features](./docs/MOBILE_UPDATE.md)
+- [SEO Implementation Guide](./docs/SEO_GUIDE.md) ⭐ NEW
+- [SEO Summary](./docs/SEO_SUMMARY.md) ⭐ NEW
+- [Post-Deployment Checklist](./docs/POST_DEPLOYMENT_CHECKLIST.md) ⭐ NEW
 
 ## 🔧 Development
 
