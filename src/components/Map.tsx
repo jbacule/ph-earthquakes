@@ -7,6 +7,7 @@ import EarthquakeMarker from "./EarthquakeMarker";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useImperativeHandle, forwardRef, useState } from "react";
 import L from "leaflet";
+import type { MapTheme } from "@/types/mapTheme";
 
 // Fix for default marker icon in react-leaflet
 // @ts-ignore
@@ -22,6 +23,7 @@ L.Icon.Default.mergeOptions({
 
 interface MapProps {
 	earthquakes: EarthquakeFeature[];
+	theme: MapTheme;
 }
 
 export interface MapRef {
@@ -45,7 +47,7 @@ function MapController({ targetLocation }: { targetLocation: [number, number, nu
 	return null;
 }
 
-const Map = forwardRef<MapRef, MapProps>(({ earthquakes }, ref) => {
+const Map = forwardRef<MapRef, MapProps>(({ earthquakes, theme }, ref) => {
 	const [targetLocation, setTargetLocation] = useState<[number, number, number] | null>(null);
 	const [targetPopupId, setTargetPopupId] = useState<string | null>(null);
 
@@ -81,8 +83,8 @@ const Map = forwardRef<MapRef, MapProps>(({ earthquakes }, ref) => {
 			>
 				<MapController targetLocation={targetLocation} />
 				<TileLayer
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					attribution={theme.attribution}
+					url={theme.url}
 				/>
 
 				<MarkerClusterGroup

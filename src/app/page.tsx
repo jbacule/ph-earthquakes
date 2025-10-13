@@ -27,6 +27,8 @@ import {
 } from "@/components/ui/sheet";
 import type { MapRef } from "@/components/Map";
 import Image from "next/image";
+import { MAP_THEMES, DEFAULT_THEME_ID } from "@/types/mapTheme";
+import type { MapTheme } from "@/types/mapTheme";
 
 // Dynamic import to avoid SSR issues with Leaflet
 const Map = dynamic(() => import("@/components/Map"), {
@@ -53,6 +55,9 @@ export default function Home() {
 	});
 	const [filterSheetOpen, setFilterSheetOpen] = useState(false);
 	const [listSheetOpen, setListSheetOpen] = useState(false);
+	const [mapTheme, setMapTheme] = useState<MapTheme>(
+		MAP_THEMES.find((t) => t.id === DEFAULT_THEME_ID) || MAP_THEMES[0]
+	);
 	
 	const mapRef = useRef<MapRef>(null);
 
@@ -228,6 +233,75 @@ export default function Home() {
 								{formatEarthquakeDate(data.metadata.generated)}
 							</p>
 						</div>
+
+						{/* Theme Dropdown */}
+						<div className="relative group">
+							<Button
+								variant="outline"
+								size="icon-sm"
+								className="shrink-0"
+								title="Change map theme"
+							>
+								<svg
+									className="w-4 h-4"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+									/>
+								</svg>
+							</Button>
+							{/* Dropdown Menu */}
+							<div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+								<div className="p-2">
+									<div className="text-xs font-semibold text-gray-500 px-3 py-2">
+										MAP THEME
+									</div>
+									{MAP_THEMES.map((theme) => (
+										<button
+											key={theme.id}
+											type="button"
+											onClick={() => setMapTheme(theme)}
+											className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
+												mapTheme.id === theme.id
+													? "bg-blue-50 text-blue-700"
+													: "hover:bg-gray-50 text-gray-700"
+											}`}
+										>
+											<div className="flex items-center justify-between gap-2">
+												<div className="flex-1 min-w-0">
+													<div className="font-medium text-sm">
+														{theme.name}
+													</div>
+													<div className="text-xs text-gray-500 truncate">
+														{theme.description}
+													</div>
+												</div>
+												{mapTheme.id === theme.id && (
+													<svg
+														className="w-4 h-4 text-blue-600 shrink-0"
+														fill="currentColor"
+														viewBox="0 0 20 20"
+													>
+														<path
+															fillRule="evenodd"
+															d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+															clipRule="evenodd"
+														/>
+													</svg>
+												)}
+											</div>
+										</button>
+									))}
+								</div>
+							</div>
+						</div>
+
 						<Button
 							onClick={loadData}
 							variant="outline"
@@ -293,15 +367,6 @@ export default function Home() {
 								>
 									View Details →
 								</a>
-								<span className="hidden sm:inline text-gray-400">|</span>
-								<a
-									href="https://jbacule.dev"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-gray-600 hover:text-gray-900 text-xs hidden sm:inline"
-								>
-									Created by Josh Bacule
-								</a>
 							</div>
 						</div>
 					</div>
@@ -310,7 +375,7 @@ export default function Home() {
 
 			{/* Main Content - Full screen map */}
 			<main className="flex-1 relative overflow-hidden">
-				<Map ref={mapRef} earthquakes={filteredEarthquakes} />
+				<Map ref={mapRef} earthquakes={filteredEarthquakes} theme={mapTheme} />
 				
 				{/* Footer Credit - Bottom Left */}
 				<div className="absolute bottom-2 left-2 z-10 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-md shadow-md border border-gray-200">
