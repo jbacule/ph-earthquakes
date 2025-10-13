@@ -29,6 +29,7 @@ interface MapProps {
 export interface MapRef {
 	flyToLocation: (lat: number, lng: number, zoom?: number) => void;
 	openPopupById: (earthquakeId: string) => void;
+	resetZoom: () => void;
 }
 
 // Component to control map from outside
@@ -51,6 +52,10 @@ const Map = forwardRef<MapRef, MapProps>(({ earthquakes, theme }, ref) => {
 	const [targetLocation, setTargetLocation] = useState<[number, number, number] | null>(null);
 	const [targetPopupId, setTargetPopupId] = useState<string | null>(null);
 
+	// Philippines center coordinates
+	const defaultCenter: [number, number] = [12.8797, 121.774];
+	const defaultZoom = 6;
+
 	useImperativeHandle(ref, () => ({
 		flyToLocation: (lat: number, lng: number, zoom: number = 12) => {
 			setTargetLocation([lat, lng, zoom]);
@@ -59,6 +64,9 @@ const Map = forwardRef<MapRef, MapProps>(({ earthquakes, theme }, ref) => {
 			setTargetPopupId(earthquakeId);
 			// Reset after a delay to allow the popup to open
 			setTimeout(() => setTargetPopupId(null), 500);
+		},
+		resetZoom: () => {
+			setTargetLocation([defaultCenter[0], defaultCenter[1], defaultZoom]);
 		},
 	}));
 
@@ -69,15 +77,11 @@ const Map = forwardRef<MapRef, MapProps>(({ earthquakes, theme }, ref) => {
 		}
 	}, []);
 
-	// Philippines center coordinates
-	const center: [number, number] = [12.8797, 121.774];
-	const zoom = 6;
-
 	return (
 		<div className="h-full w-full">
 			<MapContainer
-				center={center}
-				zoom={zoom}
+				center={defaultCenter}
+				zoom={defaultZoom}
 				className="h-full w-full"
 				scrollWheelZoom={true}
 			>

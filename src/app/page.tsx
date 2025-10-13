@@ -60,6 +60,7 @@ export default function Home() {
 	});
 	const [filterSheetOpen, setFilterSheetOpen] = useState(false);
 	const [listSheetOpen, setListSheetOpen] = useState(false);
+	const [themeSheetOpen, setThemeSheetOpen] = useState(false);
 	const [mapTheme, setMapTheme] = useState<MapTheme>(
 		MAP_THEMES.find((t) => t.id === DEFAULT_THEME_ID) || MAP_THEMES[0]
 	);
@@ -90,6 +91,9 @@ export default function Home() {
 
 	const handleFetchFromAPI = () => {
 		loadData();
+		// Close filter sheet and open list sheet after fetching
+		setFilterSheetOpen(false);
+		setListSheetOpen(true);
 	};
 
 	const handleEarthquakeClick = (earthquake: EarthquakeFeature) => {
@@ -151,7 +155,7 @@ export default function Home() {
 			<div className="min-h-screen flex items-center justify-center bg-gray-50">
 				<div className="text-center space-y-4">
 					<div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto" />
-					<p className="text-xl text-gray-600">Loading earthquake data...</p>
+					<p className="text-xl text-gray-600">Loading data...</p>
 				</div>
 			</div>
 		);
@@ -324,7 +328,7 @@ export default function Home() {
 				{/* Stats Bar */}
 				{largestEarthquake && (
 					<div className="px-4 py-2 bg-gradient-to-r from-red-50 to-orange-50 border-t border-gray-200">
-						<div className="flex items-center justify-between text-sm flex-wrap gap-2">
+						<div className="flex items-center text-xs md:text-sm flex-wrap gap-2">
 							<div className="flex items-center gap-2">
 								<span className="font-semibold text-red-700">⚡ Largest:</span>
 								<span className="text-gray-900">
@@ -338,7 +342,7 @@ export default function Home() {
 									rel="noopener noreferrer"
 									className="text-blue-600 hover:text-blue-800 font-medium"
 								>
-									View Details →
+									View →
 								</a>
 							</div>
 						</div>
@@ -414,80 +418,67 @@ export default function Home() {
 						</TooltipContent>
 					</Tooltip>
 
-					{/* Theme Switcher Button with Dropdown */}
-					<div className="relative group">
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<Button
-									variant="default"
-									size="icon"
-									className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px]"
-									aria-label="Change map theme"
+					{/* Theme Switcher Button */}
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="default"
+								size="icon"
+								onClick={() => setThemeSheetOpen(true)}
+								className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px]"
+								aria-label="Change map theme"
+							>
+								<svg
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
 								>
-									<svg
-										className="w-5 h-5"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-										/>
-									</svg>
-								</Button>
-							</TooltipTrigger>
-							<TooltipContent side="right" sideOffset={10}>
-								<p>Change Map Theme</p>
-							</TooltipContent>
-						</Tooltip>
-						{/* Dropdown Menu */}
-						<div className="absolute left-full ml-2 top-0 w-64 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-							<div className="p-2">
-								<div className="text-xs font-semibold text-gray-500 px-3 py-2">
-									MAP THEME
-								</div>
-								{MAP_THEMES.map((theme) => (
-									<button
-										key={theme.id}
-										type="button"
-										onClick={() => setMapTheme(theme)}
-										className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-											mapTheme.id === theme.id
-												? "bg-blue-50 text-blue-700"
-												: "hover:bg-gray-50 text-gray-700"
-										}`}
-									>
-										<div className="flex items-center justify-between gap-2">
-											<div className="flex-1 min-w-0">
-												<div className="font-medium text-sm">
-													{theme.name}
-												</div>
-												<div className="text-xs text-gray-500 truncate">
-													{theme.description}
-												</div>
-											</div>
-											{mapTheme.id === theme.id && (
-												<svg
-													className="w-4 h-4 text-blue-600 shrink-0"
-													fill="currentColor"
-													viewBox="0 0 20 20"
-												>
-													<path
-														fillRule="evenodd"
-														d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-														clipRule="evenodd"
-													/>
-												</svg>
-											)}
-										</div>
-									</button>
-								))}
-							</div>
-						</div>
-					</div>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+									/>
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent side="right" sideOffset={10}>
+							<p>Map Theme</p>
+						</TooltipContent>
+					</Tooltip>
+
+					{/* Reset Zoom Button */}
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="default"
+								size="icon"
+								onClick={() => mapRef.current?.resetZoom()}
+								className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px]"
+								aria-label="Reset map zoom"
+							>
+								<svg
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+									/>
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent side="right" sideOffset={10}>
+							<p>Reset Zoom</p>
+						</TooltipContent>
+					</Tooltip>
 
 					{/* Refresh Button */}
 					<Tooltip>
@@ -559,25 +550,67 @@ export default function Home() {
 						</SheetDescription>
 					</SheetHeader>
 					
-					<div className="space-y-4 mt-4">
-						{/* API Query Controls */}
-						<QueryControls
-							queryParams={queryParams}
-							onQueryParamsChange={setQueryParams}
-							onFetch={handleFetchFromAPI}
-							loading={loading}
-						/>
+					<div className="space-y-2">
+						{/* Merged Filter Card */}
+						<Card className="p-4 bg-white shadow-lg mx-4">
+							<div className="flex justify-between items-center">
+								<h2 className="text-lg font-bold text-gray-900">Filters</h2>
+							</div>
 
-						{/* Filters */}
-						<FilterPanel
-							filters={filters}
-							onFiltersChange={setFilters}
-							totalCount={data.features.length}
-							filteredCount={filteredEarthquakes.length}
-						/>
+							{/* API Query Controls */}
+							<QueryControls
+								queryParams={queryParams}
+								onQueryParamsChange={setQueryParams}
+								onFetch={handleFetchFromAPI}
+								loading={loading}
+							/>
+
+							{/* Divider */}
+							<div className="border-t border-gray-200" />
+
+							{/* Display Filters */}
+							<FilterPanel
+								filters={filters}
+								onFiltersChange={setFilters}
+								totalCount={data.features.length}
+								filteredCount={filteredEarthquakes.length}
+							/>
+
+							{/* Submit Button */}
+							<Button
+								onClick={handleFetchFromAPI}
+								disabled={loading}
+								className="w-full"
+								size="lg"
+							>
+								{loading ? (
+									<>
+										<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+										Loading...
+									</>
+								) : (
+									<>
+										<svg
+											className="w-4 h-4 mr-2"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+											/>
+										</svg>
+										Submit
+									</>
+								)}
+							</Button>
+						</Card>
 
 						{/* Legend */}
-						<Card className="p-4 space-y-3">
+						<Card className="p-4 space-y-3 bg-white shadow-lg mx-4">
 							<h3 className="text-sm font-bold text-gray-900">Magnitude Legend</h3>
 							<div className="space-y-2 text-xs">
 								<div className="flex items-center gap-2">
@@ -620,6 +653,62 @@ export default function Home() {
 						earthquakes={filteredEarthquakes}
 						onEarthquakeClick={handleEarthquakeClick}
 					/>
+				</SheetContent>
+			</Sheet>
+
+			{/* Theme Selector Sheet (Right Side) */}
+			<Sheet open={themeSheetOpen} onOpenChange={setThemeSheetOpen}>
+				<SheetContent side="right" className="w-full sm:max-w-sm overflow-y-auto">
+					<SheetHeader>
+						<SheetTitle>Map Theme</SheetTitle>
+						<SheetDescription>
+							Choose your preferred map style
+						</SheetDescription>
+					</SheetHeader>
+					
+					<div className="mt-6 mx-4">
+						<div className="space-y-2">
+							{MAP_THEMES.map((theme) => (
+								<button
+									key={theme.id}
+									type="button"
+									onClick={() => {
+										setMapTheme(theme);
+										setThemeSheetOpen(false);
+									}}
+									className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+										mapTheme.id === theme.id
+											? "border-blue-500 bg-blue-50"
+											: "border-gray-200 bg-white hover:border-gray-300"
+									}`}
+								>
+									<div className="flex items-start justify-between gap-3">
+										<div className="flex-1 min-w-0">
+											<div className="font-semibold text-base text-gray-900">
+												{theme.name}
+											</div>
+											<div className="text-sm text-gray-600 mt-1">
+												{theme.description}
+											</div>
+										</div>
+										{mapTheme.id === theme.id && (
+											<svg
+												className="w-6 h-6 text-blue-500 shrink-0"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+											>
+												<path
+													fillRule="evenodd"
+													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+													clipRule="evenodd"
+												/>
+											</svg>
+										)}
+									</div>
+								</button>
+							))}
+						</div>
+					</div>
 				</SheetContent>
 			</Sheet>
 		</div>

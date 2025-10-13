@@ -87,15 +87,19 @@ export default function FilterPanel({
 	};
 
 	return (
-		<Card className="p-4 space-y-4 bg-white shadow-lg">
-			<div className="flex justify-between items-center">
-				<h2 className="text-lg font-bold text-gray-900">Filters</h2>
-				<Badge variant="secondary" className="text-sm">
-					{filteredCount} / {totalCount}
-				</Badge>
-			</div>
-
+		<div className="space-y-4">
+			{/* Display Filters Section */}
 			<div className="space-y-3">
+				<h3 className="text-sm font-semibold text-gray-700">Display Filters</h3>
+				
+				{/* Results Count Badge */}
+				<div className="flex items-center gap-2">
+					<span className="text-sm text-gray-600">Showing:</span>
+					<Badge variant="secondary" className="text-sm">
+						{filteredCount} / {totalCount}
+					</Badge>
+				</div>
+
 				{/* Magnitude Range */}
 				<div className="space-y-2">
 					<label className="text-sm font-semibold text-gray-700">
@@ -179,7 +183,7 @@ export default function FilterPanel({
 					Clear All Filters
 				</Button>
 			</div>
-		</Card>
+		</div>
 	);
 }
 
