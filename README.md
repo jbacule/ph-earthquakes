@@ -81,116 +81,37 @@ pnpm build
 pnpm start
 ```
 
-## 📖 Usage
+## 📖 Quick Start
 
-### Basic Navigation
+1. **Open the app** and view the interactive earthquake map
+2. **Left menu (☰)** - Configure filters, date range, and magnitude settings
+3. **Right menu (☰)** - Browse earthquake list and click to zoom
+4. **Map interaction** - Click markers for details, pan and zoom freely
 
-1. **Left Menu (☰)** - Opens filters and settings
-   - Configure API query parameters
-   - Set display filters
-   - View magnitude legend
+For detailed usage instructions, see the [Usage Guide](./docs/USAGE.md).
 
-2. **Right Menu (☰)** - Opens earthquake list
-   - Browse all earthquakes
-   - Click any item to zoom to location
-   - Details auto-open on the map
+## 💻 Technology Stack
 
-3. **Map Interaction**
-   - Click markers for detailed popup
-   - Pan and zoom freely
-   - Click clusters to expand
-
-### Fetching Data
-
-1. Click the left menu to open filters
-2. Configure date range (or use presets: 24h, 7d, 30d)
-3. Optionally set magnitude filters
-4. Choose sort order
-5. Click "Fetch Data" button
-6. Map updates with fresh USGS data
-
-### Filtering Display
-
-- Use magnitude range slider to narrow results
-- Select specific alert levels
-- Toggle tsunami warnings only
-- Filters apply instantly without refetching
-
-## 🎨 Technology Stack
-
-### Core
 - **Next.js 15** - React framework with App Router
-- **React 19** - UI library
+- **React 19** - JavaScript library
 - **TypeScript 5** - Type safety
 - **Tailwind CSS 4** - Utility-first styling
-
-### Mapping
-- **Leaflet 1.9.4** - Open-source mapping library
-- **react-leaflet 5.0.0** - React bindings for Leaflet
-- **react-leaflet-cluster 3.1.1** - Marker clustering
-- **OpenStreetMap** - Free map tiles
-
-### UI Components
+- **Leaflet** - Open-source mapping library with marker clustering
 - **Shadcn UI** - Accessible component library
-- **Radix UI** - Headless UI primitives
-- **Lucide React** - Icon library
-
-### Data Source
 - **USGS Earthquake API** - Real-time earthquake data
-- **GeoJSON** format for geographic data
 
 ## 📁 Project Structure
 
 ```
 ph-earthquakes/
 ├── src/
-│   ├── app/
-│   │   ├── page.tsx              # Main application page
-│   │   ├── layout.tsx            # Root layout with metadata
-│   │   └── globals.css           # Global styles + Leaflet CSS
-│   ├── components/
-│   │   ├── Map.tsx               # Leaflet map with clustering
-│   │   ├── EarthquakeMarker.tsx  # Individual earthquake markers
-│   │   ├── EarthquakeList.tsx    # Scrollable earthquake list
-│   │   ├── FilterPanel.tsx       # Display filters UI
-│   │   ├── QueryControls.tsx     # API query configuration
-│   │   └── ui/                   # Shadcn UI components
-│   ├── lib/
-│   │   ├── earthquakeService.ts  # Data fetching & utilities
-│   │   ├── usgsApi.ts           # USGS API integration
-│   │   └── utils.ts             # Helper functions
-│   └── types/
-│       └── earthquake.ts         # TypeScript type definitions
-├── public/
-│   └── data.json                 # Sample earthquake data
-├── docs/                         # Additional documentation
-│   ├── USAGE.md                  # Detailed usage guide
-│   ├── PROJECT_SUMMARY.md        # Implementation details
-│   └── MOBILE_UPDATE.md          # Mobile features documentation
-└── README.md                     # This file
+│   ├── app/              # Next.js app router
+│   ├── components/       # React components
+│   ├── lib/             # Utilities & services
+│   └── types/           # TypeScript definitions
+├── public/              # Static assets
+└── docs/               # Documentation
 ```
-
-## 🎯 Key Features Explained
-
-### Auto-Zoom & Popup
-When you click an earthquake in the list:
-1. Map smoothly flies to the location (1.5s animation)
-2. Popup automatically opens showing details
-3. List panel closes for better viewing
-
-### Magnitude Color Scheme
-- 🔴 **≥ 7.0** - Major (Red)
-- 🟠 **6.0-6.9** - Strong (Orange)  
-- 🟡 **5.0-5.9** - Moderate (Yellow)
-- 🔵 **4.0-4.9** - Light (Blue)
-- ⚪ **< 4.0** - Minor (Gray)
-
-### USGS API Query Parameters
-- `starttime` / `endtime` - Date range (YYYY-MM-DD)
-- `minmagnitude` / `maxmagnitude` - Magnitude filters
-- `orderby` - Sort order (time/magnitude, asc/desc)
-- `minlatitude` / `maxlatitude` - Philippines bounds
-- `minlongitude` / `maxlongitude` - Philippines bounds
 
 ## 📚 Documentation
 
@@ -198,9 +119,9 @@ For more detailed information, see:
 - [Detailed Usage Guide](./docs/USAGE.md)
 - [Project Summary](./docs/PROJECT_SUMMARY.md)
 - [Mobile Features](./docs/MOBILE_UPDATE.md)
-- [SEO Implementation Guide](./docs/SEO_GUIDE.md) ⭐ NEW
-- [SEO Summary](./docs/SEO_SUMMARY.md) ⭐ NEW
-- [Post-Deployment Checklist](./docs/POST_DEPLOYMENT_CHECKLIST.md) ⭐ NEW
+- [SEO Implementation Guide](./docs/SEO_GUIDE.md)
+- [SEO Summary](./docs/SEO_SUMMARY.md)
+- [Post-Deployment Checklist](./docs/POST_DEPLOYMENT_CHECKLIST.md)
 
 ## 🔧 Development
 
@@ -221,21 +142,9 @@ pnpm format       # Format code with Biome
 
 No environment variables required! The app uses public USGS API endpoints.
 
-## 🌐 API Information
+## 🌐 Data Source
 
-**USGS Earthquake API**
-- Base URL: `https://earthquake.usgs.gov/fdsnws/event/1/query`
-- Format: GeoJSON
-- Documentation: [USGS API Docs](https://earthquake.usgs.gov/fdsnws/event/1/)
-- Rate Limits: None (reasonable use)
-- Real-time Updates: Within minutes of earthquake events
-
-## 📱 Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+Real-time earthquake data from [USGS Earthquake API](https://earthquake.usgs.gov/fdsnws/event/1/) in GeoJSON format. Updates within minutes of earthquake events.
 
 ## 🤝 Contributing
 
@@ -243,13 +152,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
-
-## 👨‍💻 Creator
-
-**Josh Bacule**
-- Website: [jbacule.dev](https://jbacule.dev)
-- Portfolio: Full-stack Software Engineer
+This project is open source and available under the [MIT License](./LICENSE).
 
 ## 🙏 Acknowledgments
 
