@@ -25,6 +25,11 @@ import {
 	SheetTitle,
 	SheetDescription,
 } from "@/components/ui/sheet";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { MapRef } from "@/components/Map";
 import Image from "next/image";
 import { MAP_THEMES, DEFAULT_THEME_ID } from "@/types/mapTheme";
@@ -272,30 +277,6 @@ export default function Home() {
 			{/* Header */}
 			<header className="bg-white border-b border-gray-200 shadow-sm z-10 relative">
 				<div className="px-4 py-3 flex items-center justify-between gap-2">
-					{/* Left: Burger Menu for Filters */}
-					<Button
-						variant="ghost"
-						size="icon-sm"
-						onClick={() => setFilterSheetOpen(true)}
-						className="shrink-0"
-						aria-label="Open filters and settings"
-					>
-						<svg
-							className="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							aria-hidden="true"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M4 6h16M4 12h16M4 18h16"
-							/>
-						</svg>
-					</Button>
-
 					{/* Center: Title */}
 					<div className="flex items-center gap-2 min-w-0 flex-1">
 						<div className="shrink-0 relative w-6 h-6 sm:w-8 sm:h-8">
@@ -326,7 +307,7 @@ export default function Home() {
 						</div>
 					</div>
 
-					{/* Right: Actions */}
+					{/* Right: Info */}
 					<div className="flex items-center gap-2 shrink-0">
 						<div className="hidden md:block text-right">
 							<p className="text-sm font-semibold text-gray-900">
@@ -337,122 +318,6 @@ export default function Home() {
 								{formatEarthquakeDate(data.metadata.generated)}
 							</p>
 						</div>
-
-						{/* Theme Dropdown */}
-						<div className="relative group">
-							<Button
-								variant="outline"
-								size="icon-sm"
-								className="shrink-0"
-								title="Change map theme"
-							>
-								<svg
-									className="w-4 h-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-									/>
-								</svg>
-							</Button>
-							{/* Dropdown Menu */}
-							<div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-								<div className="p-2">
-									<div className="text-xs font-semibold text-gray-500 px-3 py-2">
-										MAP THEME
-									</div>
-									{MAP_THEMES.map((theme) => (
-										<button
-											key={theme.id}
-											type="button"
-											onClick={() => setMapTheme(theme)}
-											className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-												mapTheme.id === theme.id
-													? "bg-blue-50 text-blue-700"
-													: "hover:bg-gray-50 text-gray-700"
-											}`}
-										>
-											<div className="flex items-center justify-between gap-2">
-												<div className="flex-1 min-w-0">
-													<div className="font-medium text-sm">
-														{theme.name}
-													</div>
-													<div className="text-xs text-gray-500 truncate">
-														{theme.description}
-													</div>
-												</div>
-												{mapTheme.id === theme.id && (
-													<svg
-														className="w-4 h-4 text-blue-600 shrink-0"
-														fill="currentColor"
-														viewBox="0 0 20 20"
-													>
-														<path
-															fillRule="evenodd"
-															d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-															clipRule="evenodd"
-														/>
-													</svg>
-												)}
-											</div>
-										</button>
-									))}
-								</div>
-							</div>
-						</div>
-
-						<Button
-							onClick={loadData}
-							variant="outline"
-							size="icon-sm"
-							className="shrink-0"
-							disabled={loading}
-							title="Refresh earthquake data"
-							aria-label="Refresh earthquake data"
-						>
-							<svg
-								className="w-4 h-4"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-								/>
-							</svg>
-						</Button>
-						<Button
-							variant="ghost"
-							size="icon-sm"
-							onClick={() => setListSheetOpen(true)}
-							className="shrink-0"
-							title="View earthquake list"
-							aria-label="View earthquake list"
-						>
-							<svg
-								className="w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M4 6h16M4 12h16M4 18h16"
-								/>
-							</svg>
-						</Button>
 					</div>
 				</div>
 
@@ -485,6 +350,178 @@ export default function Home() {
 			<main className="flex-1 relative overflow-hidden">
 				<Map ref={mapRef} earthquakes={filteredEarthquakes} theme={mapTheme} />
 				
+				{/* Map Overlay Controls - Top Left */}
+				<div className="absolute top-[85px] left-3 z-[1000] flex flex-col gap-2">
+					{/* Filter Button */}
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="default"
+								size="icon"
+								onClick={() => setFilterSheetOpen(true)}
+								className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px]"
+								aria-label="Open filters and settings"
+							>
+								<svg
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+									/>
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent side="right" sideOffset={10}>
+							<p>Filters & Settings</p>
+						</TooltipContent>
+					</Tooltip>
+
+					{/* Earthquake List Button */}
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="default"
+								size="icon"
+								onClick={() => setListSheetOpen(true)}
+								className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px]"
+								aria-label="View earthquake list"
+							>
+								<svg
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M4 6h16M4 10h16M4 14h16M4 18h16"
+									/>
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent side="right" sideOffset={10}>
+							<p>Earthquake List</p>
+						</TooltipContent>
+					</Tooltip>
+
+					{/* Theme Switcher Button with Dropdown */}
+					<div className="relative group">
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button
+									variant="default"
+									size="icon"
+									className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px]"
+									aria-label="Change map theme"
+								>
+									<svg
+										className="w-5 h-5"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+										/>
+									</svg>
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent side="right" sideOffset={10}>
+								<p>Change Map Theme</p>
+							</TooltipContent>
+						</Tooltip>
+						{/* Dropdown Menu */}
+						<div className="absolute left-full ml-2 top-0 w-64 bg-white rounded-lg shadow-xl border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+							<div className="p-2">
+								<div className="text-xs font-semibold text-gray-500 px-3 py-2">
+									MAP THEME
+								</div>
+								{MAP_THEMES.map((theme) => (
+									<button
+										key={theme.id}
+										type="button"
+										onClick={() => setMapTheme(theme)}
+										className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
+											mapTheme.id === theme.id
+												? "bg-blue-50 text-blue-700"
+												: "hover:bg-gray-50 text-gray-700"
+										}`}
+									>
+										<div className="flex items-center justify-between gap-2">
+											<div className="flex-1 min-w-0">
+												<div className="font-medium text-sm">
+													{theme.name}
+												</div>
+												<div className="text-xs text-gray-500 truncate">
+													{theme.description}
+												</div>
+											</div>
+											{mapTheme.id === theme.id && (
+												<svg
+													className="w-4 h-4 text-blue-600 shrink-0"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+												>
+													<path
+														fillRule="evenodd"
+														d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+														clipRule="evenodd"
+													/>
+												</svg>
+											)}
+										</div>
+									</button>
+								))}
+							</div>
+						</div>
+					</div>
+
+					{/* Refresh Button */}
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Button
+								variant="default"
+								size="icon"
+								onClick={loadData}
+								disabled={loading}
+								className="bg-white hover:bg-gray-50 text-gray-700 shadow-lg border border-gray-300 w-[34px] h-[34px] disabled:opacity-50"
+								aria-label="Refresh earthquake data"
+							>
+								<svg
+									className="w-5 h-5"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+									/>
+								</svg>
+							</Button>
+						</TooltipTrigger>
+						<TooltipContent side="right" sideOffset={10}>
+							<p>Refresh Data</p>
+						</TooltipContent>
+					</Tooltip>
+				</div>
+
 				{/* Footer Credit - Bottom Left */}
 				<div className="absolute bottom-2 left-2 z-10 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-md shadow-md border border-gray-200">
 					<a
