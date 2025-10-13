@@ -237,7 +237,7 @@ This project is open source and available under the MIT License.
 
 ## 👨‍💻 Creator
 
-**Job Bacule**
+**Josh Bacule**
 - Website: [jbacule.dev](https://jbacule.dev)
 - Portfolio: Full-stack Software Engineer
 
@@ -255,4 +255,4 @@ For issues, questions, or suggestions, please open an issue on the repository.
 ---
 
 **Built with ❤️ for earthquake monitoring in the Philippines** 🇵🇭  
-**Created by [Job Bacule](https://jbacule.dev)**
+**Created by [Josh Bacule](https://jbacule.dev)**
