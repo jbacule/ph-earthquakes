@@ -49,11 +49,19 @@ Filter earthquakes on the map:
 - **Tsunami Warnings** - Show only earthquakes with tsunami warnings
 
 ### 📊 Stats & Information
-- Total earthquake count
+- Total earthquake count (shown in header)
 - Filtered earthquake count
-- Largest earthquake highlight
-- Last update timestamp
-- Data source indicator (Live API or Local Data)
+- Largest earthquake highlight (in stats bar)
+- Last update timestamp (in header)
+- Live indicator badge
+
+### 🎮 Map Overlay Controls
+Positioned in the top-left corner of the map (similar to zoom controls):
+- **Filter Button** - Opens filters, settings, and legend panel
+- **List Button** - Opens scrollable earthquake list
+- **Theme Button** - Hover to switch map themes
+- **Refresh Button** - Reload data with current parameters
+- All controls feature helpful tooltips on hover
 
 ## How to Use
 
@@ -65,32 +73,72 @@ pnpm dev
 The application will be available at `http://localhost:3000`
 
 ### 2. Initial Load
-- The app loads with local sample data from `public/data.json`
-- This data contains earthquakes from October 5-12, 2025
+- The app loads with earthquake data on startup
+- The map displays with interactive controls in the top-left corner
 
-### 3. Fetch Live Data from USGS API
-1. Configure your query in the **API Query** panel:
+### 3. Map Overlay Controls
+Located in the **top-left corner of the map**, you'll find four interactive controls with tooltips:
+
+1. **🔍 Filter Button** (top)
+   - Opens the Filters & Settings panel
+   - Configure API query parameters, filters, and view the legend
+   
+2. **📋 List Button** (second)
+   - Opens the Earthquake List panel
+   - View all earthquakes, click to zoom to location
+   
+3. **🎨 Theme Button** (third)
+   - Hover to see available map themes
+   - Select from multiple OpenStreetMap styles
+   
+4. **🔄 Refresh Button** (bottom)
+   - Reload earthquake data with current query parameters
+   - Updates the map with latest data
+
+### 4. Fetch Live Data from USGS API
+1. Click the **Filter button** (🔍) in the map overlay controls
+2. Configure your query in the **API Query** section:
    - Select a date range (use quick presets or custom dates)
    - Optionally set magnitude limits
    - Choose sort order
-2. Click **"Fetch Data"** button
-3. The map will update with fresh data from USGS
+3. Click **"Fetch Data"** button
+4. The map will update with fresh data from USGS
 
-### 4. Filter the Display
-- Use the **Filters** panel to narrow down what you see on the map
-- Filters are applied client-side and don't require a new API call
-- Click **"Clear All Filters"** to reset
+### 5. Filter the Display
+1. Click the **Filter button** (🔍) in the map overlay controls
+2. Use the **Display Filters** section to narrow down what you see:
+   - Adjust magnitude range
+   - Select alert levels
+   - Toggle tsunami warnings only
+3. Filters are applied client-side instantly
+4. Click **"Clear All Filters"** to reset
 
-### 5. Explore the Map
-- Pan and zoom freely
-- Click markers to see details
+### 6. Browse Earthquake List
+1. Click the **List button** (📋) in the map overlay controls
+2. Scroll through filtered earthquakes
+3. Click any earthquake card to:
+   - Zoom to its location on the map
+   - Automatically open the marker popup
+
+### 7. Change Map Theme
+1. Hover over the **Theme button** (🎨) in the map overlay controls
+2. A dropdown appears with available themes
+3. Click to select:
+   - OpenStreetMap Standard
+   - Humanitarian
+   - Topo Map
+   - Dark Mode variants
+
+### 8. Explore the Map
+- Pan and zoom freely using mouse or touch
+- Click markers to see detailed earthquake information
 - Click clusters to zoom in and expand them
-- Click "View Details on USGS" in popups for full earthquake information
+- Click "View Details on USGS" in popups for full information
 
-### 6. Refresh Data
-- Click the **"Refresh"** button in the header to reload current data
-- If using API data, it will fetch with the same query parameters
-- If using local data, it will reload from the local file
+### 9. Refresh Data
+- Click the **Refresh button** (🔄) in the map overlay controls
+- Reloads current data with the same query parameters
+- Shows loading state while fetching
 
 ## API Details
 

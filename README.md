@@ -13,8 +13,11 @@ An interactive, real-time earthquake monitoring application for the Philippines 
 - **OpenStreetMap** integration with Leaflet
 - **Marker Clustering** - Automatic grouping of nearby earthquakes
 - **Color-coded markers** by magnitude (red, orange, yellow, blue, gray)
+- **Map overlay controls** - Filter, List, Theme switcher, and Refresh buttons positioned on map
+- **Multiple map themes** - Choose from various OpenStreetMap styles
 - **Auto-zoom to earthquakes** from the list
 - **Detailed popups** with comprehensive earthquake information
+- **Helpful tooltips** on all interactive controls
 
 ### 📱 Mobile-First Design
 - **Collapsible sidebars** with burger menu navigation
@@ -84,9 +87,13 @@ pnpm start
 ## 📖 Quick Start
 
 1. **Open the app** and view the interactive earthquake map
-2. **Left menu (☰)** - Configure filters, date range, and magnitude settings
-3. **Right menu (☰)** - Browse earthquake list and click to zoom
-4. **Map interaction** - Click markers for details, pan and zoom freely
+2. **Map overlay controls** (top-left corner):
+   - 🔍 **Filter button** - Configure filters, date range, and magnitude settings
+   - 📋 **List button** - Browse earthquake list and click to zoom
+   - 🎨 **Theme button** - Switch between map styles
+   - 🔄 **Refresh button** - Reload data
+3. **Map interaction** - Click markers for details, pan and zoom freely
+4. **Hover over controls** for helpful tooltips
 
 For detailed usage instructions, see the [Usage Guide](./docs/USAGE.md).
 

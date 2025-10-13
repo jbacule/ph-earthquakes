@@ -50,10 +50,13 @@ This project is a fully functional interactive earthquake monitoring application
 7. ✅ **UI/UX**
    - Clean, modern interface with Tailwind CSS
    - Shadcn UI components
-   - Responsive sidebar layout
-   - Stats and metadata display
-   - Magnitude legend
-   - Data source indicator
+   - Map overlay controls (Filter, List, Theme, Refresh)
+   - Interactive tooltips on all controls
+   - Collapsible side panels (left and right)
+   - Multiple map themes via hover dropdown
+   - Stats and metadata display in header
+   - Magnitude legend in filter panel
+   - Live data indicator badge
 
 ## 📁 Project Structure
 
@@ -152,18 +155,23 @@ pnpm start
 
 ## 📝 Usage
 
-1. **View Local Data**: App loads with sample data from Oct 5-12, 2025
-2. **Fetch Live Data**:
-   - Configure date range and filters in "API Query" panel
+1. **Initial Load**: App loads with earthquake data automatically
+2. **Map Overlay Controls** (top-left corner):
+   - 🔍 Click **Filter button** to open Filters & Settings panel
+   - 📋 Click **List button** to view and navigate earthquake list
+   - 🎨 Hover **Theme button** to switch map styles
+   - 🔄 Click **Refresh button** to reload data
+3. **Fetch Live Data**:
+   - Open filters panel, configure date range and parameters
    - Click "Fetch Data" button
    - Map updates with live USGS data
-3. **Filter Display**:
-   - Use "Filters" panel to narrow down earthquakes
+4. **Filter Display**:
+   - Open filters panel, adjust magnitude range and alert levels
    - Filters apply client-side instantly
-4. **Explore Map**:
-   - Click markers for details
+5. **Explore Map**:
+   - Click markers for detailed popups
    - Click clusters to zoom in
-   - Pan and zoom freely
+   - Pan and zoom freely with mouse or touch
 
 ## 🎯 Key Achievements
 
